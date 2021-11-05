@@ -25,18 +25,22 @@
             const xhr = new XMLHttpRequest();
             //初始化  设置类型与URL
             xhr.open('POST','http://127.0.0.1:8000/server');
-            //发送   post中的参数是使用send()发送的，而get是在链接里的
-            // xhr.send('a=100&b=200');
-            xhr.send('a:100&b:200');//这样也可以
-            //
+             //
             //设置请求头
             //content-type设置请求体内容类型
             //后面是参数查询字符串类型
-            xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded')
+            xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+            xhr.setRequestHeader('aaaa','bbbb');
+
+            
+            //发送   post中的参数是使用send()发送的，而get是在链接里的
+            // xhr.send('a=100&b=200');
+            xhr.send('a:100&b:200');//这样也可以
+           
             //事件绑定
             xhr.onreadystatechange = function(){
                 //判断
-                if(xhr.readyState == 4)
+                if(xhr.readyState === 4)
                 {
                     if(xhr.status>=200&&xhr.status<300){
                         //处理服务端返回的结果

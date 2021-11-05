@@ -8,22 +8,28 @@ const app = express();
 //request 是对请求报文的封装
 //response 是对响应报文的封装
 app.get("/server", (request, response) => {
+  //服务端get的路由规则
   //设置响应头,设置允许跨域
   response.setHeader("Access-Control-Allow-Origin", "*");
   //设置响应体
-  response.send("HELLO EXPRESS");
+  response.send("HELLO AJAX");
 });
-// app.post("/server", (request, response) => {
-//   //设置响应头,设置允许跨域
-//   response.setHeader("Access-Control-Allow-Origin", "*");
-//   //设置响应体
-//   response.send("HELLO AJAX POSt");
-// });
+app.post("/server", (request, response) => {
+  //这是post的路由规则
+  //设置响应头,设置允许跨域
+  response.setHeader("Access-Control-Allow-Origin", "*");
+  response.setHeader("Access-Control-Allow-Headers", "*");
+  //设置响应体
+  response.send("HELLO AJAX POSt");
+});
 app.all("/json-server", (request, response) => {
   //设置响应头,设置允许跨域
   response.setHeader("Access-Control-Allow-Origin", "*");
   //响应头
   response.setHeader("Access-Control-Allow-Headers", "*");
+
+  //响应体
+  // response.send("HELLO AJAX ppppp");
 
   //响应一个数据
   const data = {
