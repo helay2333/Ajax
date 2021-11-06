@@ -24,7 +24,17 @@
     btn.addEventListener('click',function(){
         // console.log("11111111");
         const xhr = new XMLHttpRequest();
-        xhr.open("GET","http://127.0.0.1:8000/ie?t="+Date.now());
+        xhr.timeout = 2000;//延时2s设置，如果超过两秒本次请求自动取消
+        //超时回调
+        xhr.ontimeout = function(){
+            alert("网络异常，稍后重试");
+        }
+        //网络异常的回调
+        xhr.onerror = function(){
+            alert("网络问题，检查网络")
+        }
+
+        xhr.open("GET","http://127.0.0.1:8000/delay");
         xhr.send();
         xhr.onreadystatechange = function(){
             if(xhr.readyState === 4){

@@ -41,6 +41,25 @@ app.all("/json-server", (request, response) => {
   //设置响应体
   response.send(str);
 });
+
+//IE
+app.get("/ie", (request, response) => {
+  //服务端get的路由规则
+  //设置响应头,设置允许跨域
+  response.setHeader("Access-Control-Allow-Origin", "*");
+  //设置响应体
+  response.send("HELLO IE   -333ssssssss333333");
+});
+//延时
+app.get("/delay", (request, response) => {
+  //服务端get的路由规则
+  //设置响应头,设置允许跨域
+  response.setHeader("Access-Control-Allow-Origin", "*");
+  setTimeout(() => {
+    response.send("延时响应");
+  }, 3000);
+  //设置响应体
+});
 app.listen(8000, () => {
   console.log("服务已启动，8000端口监视中");
 });
