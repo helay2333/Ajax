@@ -1,5 +1,5 @@
 //引用express
-const { response } = require("express");
+const { response, request } = require("express");
 const express = require("express");
 
 //创建应用对象
@@ -84,6 +84,39 @@ app.all("/fetch", (request, response) => {
   // response.send("HELLO JQUery ");
   const data = { name: "aaa" };
   response.send(JSON.stringify(data));
+});
+
+//用户名检测是否存在
+app.all("/check-username", (request, response) => {
+  const data = {
+    exist: 1,
+    msg: "用户名已经存在",
+  };
+  //将数据转化为字符串
+  let str = JSON.stringify(data);
+  //返回结果
+  response.end(`handle(${str})`);
+});
+//jquery-jsonp
+app.all("/jquery-jsonp", (request, response) => {
+  const data = {
+    name: "aaa",
+    city: ["北京", "伤害"],
+  };
+  //将数据转化为字符串
+  let str = JSON.stringify(data);
+  //结收callback参数
+  let cb = request.query.callback;
+
+  //返回结果
+  response.end(`${cb}(${str})`);
+});
+
+//
+app.all("/cors", (request, response) => {
+  //设置响应头
+  response.setHeader("Access-Control-Allow-Origin", "*");
+  response.send("hello cors");
 });
 app.listen(8000, () => {
   console.log("服务已启动，8000端口监视中");
