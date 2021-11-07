@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.js"></script>
+</head>
+<body>
+    <button>GET</button>
+    <button>POST</button>
+    <button>AJAX</button>
+    <script>
+        const btns = document.querySelectorAll('button');
+        btns[0].onclick = function(){
+            //GET请求
+            //第一个参数，给谁发
+            //第二个，发什么东西
+            //关于返回和处理和jquery也不一样
+            //jquery主要是回调函数，而axios是基于promise
+            axios.get('http://127.0.0.1:8000/axios',{
+                //url参数
+                params:{
+                    id:100
+                },
+                //请求头信息;
+                headers:{
+                    name:'aaaaa',
+                    age:20
+                }
+            }).then(value=>{
+                console.log(value);
+            })
+        }
+        btns[1].onclick = function(){
+            axios.post(
+                //第一个参数请求后端
+            'http://127.0.0.1:8000/axios',
+              //第二个参数请求体
+                {
+                    username:"admin",
+                    password:"admin"
+                },
+                //第三个参数其他选项
+                {
+                //url---请求行
+                params:{
+                    id:200,
+                    vip:9
+                },
+                //请求头参数
+                headers:{
+                    height:80,
+                    weight:180,
+                },
+                
+                
+            })
+        }
+        btns[2].onclick = function(){
+            //和jquery相似
+            axios({
+                //请求方法
+                method:'POST',
+                //url
+                url: 'http://127.0.0.1:8000/axios',
+                //url参数
+                params:{
+                    vip:10,
+                    level:30
+                },
+                //头信息
+                headers:{
+                    a:100,
+                    b:200
+                },
+                //请求体参数
+                data:{
+                    username:"admin",
+                    password:"admin"
+                }
+            }).then(response=>{
+
+                console.log(response);
+                //响应状态码
+                console.log(response.status);
+                console.log(response.statusText);
+            })
+        }
+    
+    
+    
+    
+    </script>
+</body>
+</html>

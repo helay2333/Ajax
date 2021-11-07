@@ -69,6 +69,22 @@ app.all("/jquery", (request, response) => {
   const data = { name: "aaa" };
   response.send(JSON.stringify(data));
 });
+//axios
+app.all("/axios", (request, response) => {
+  response.setHeader("Access-Control-Allow-Origin", "*");
+  response.setHeader("Access-Control-Allow-Headers", "*"); //允许自定义哦响应tou
+  // response.send("HELLO JQUery ");
+  const data = { name: "aaa" };
+  response.send(JSON.stringify(data));
+});
+//fetch
+app.all("/fetch", (request, response) => {
+  response.setHeader("Access-Control-Allow-Origin", "*");
+  response.setHeader("Access-Control-Allow-Headers", "*"); //允许自定义哦响应tou
+  // response.send("HELLO JQUery ");
+  const data = { name: "aaa" };
+  response.send(JSON.stringify(data));
+});
 app.listen(8000, () => {
   console.log("服务已启动，8000端口监视中");
 });
