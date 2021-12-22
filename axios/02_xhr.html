@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="testGet()">GET请求</button>
+    <button onclick="testPost()">POST请求</button>
+    <button onclick="testPut()">PUT请求</button>
+    <button onclick="testDelete()">DELETE请求</button>
+    <script>
+        // get请求 服务器查询数据
+    function testGet(){
+           axios({
+               url:'http://localhost:3000/posts',
+               params:{
+                   id:1
+               }
+           }).then(
+               response =>{
+                   console.log(response);
+               },
+               error=>{
+                alert(error.message)
+               }
+           )
+    }
+    // post请求 服务器保存数据
+    function testPost(){
+           axios({
+               url:'http://localhost:3000/posts',
+               method:"POST",
+               data:{
+                "title": "json-server---",
+                "author": "typicode---"
+               }
+           }).then(
+               response =>{
+                   console.log(response);
+               },
+               error=>{
+                alert(error.message)
+               }
+           )
+    }
+
+ // Put请求  服务器更新数据
+ function testPut(){
+           axios({
+               url:'http://localhost:3000/posts/1',
+               method:"PUT",
+               data:{
+                "title": "json-server++++",
+                "author": "typicode+++++++"
+               }
+           }).then(
+               response =>{
+                   console.log(response);
+               },
+               error=>{
+                alert(error.message)
+               }
+           )
+    }
+
+    // delete请求 服务器删除数据
+    function testDelete(){
+           axios({
+               url:'http://localhost:3000/posts/2',
+               method:"DELETE",
+           }).then(
+               response =>{
+                   console.log(response);
+               },
+               error=>{
+                alert(error.message)
+               }
+           )
+    }
+
+
+
+
+        function axios({
+            url,
+            method="GET",
+            params={},
+            data={}
+        }){
+            //返回一个promise对象
+            return new Promise((resolve,reject)=>{
+                //处理method小写的话转大写
+                method = method.toUpperCase()
+
+
+                //处理query参数(拼接到url上)
+                let queryString=''
+                Object.keys(params).forEach(key=>{
+                   queryString+= `${key}=${params[key]}&`
+                })
+                if(queryString){
+                    //去掉&
+                    queryString=queryString.substring(0,queryString.length-1)
+                    //接到url上
+                    url+='?'+queryString
+                }
+
+                //执行期函数
+                //1.异步ajax请求
+                //这里是通过xhr对象实现的
+
+                //创建xhr对象
+                const request = new XMLHttpRequest()
+                //打开连接(初始化请求，没有请求)
+                request.open(method,url,true)
+                //发送请求(send才是发送请求了)
+                //这里的data必须是字符串
+                // request.send(data)
+                if(method === "GET" ||method==="DELETE"){
+                    request.send(null)//get方法，表示不传数据了
+                }else if(method==="POST" || method==="PUT"){
+                    //一旦发送json格式数据，就要添加新的请求头,告诉服务器请求体格式为json
+                    request.setRequestHeader('Content-Type','application/json;charset=utf-8')
+                    request.send(JSON.stringify(data))
+                }
+
+            //绑定状态改变的监听
+                //,为什么这里写在请求后面也成立，按照惯性思维来说，应该是在请求之前绑定一个状态的监听，当
+                //请求得时候，通过这个监听就知道请求得状态了，原因在于请求是异步的，send()函数是异步的，会先执行下面的同步代码，然后执行、
+                //放置在前面是合情合理的，但是不要忘记放在后面也可以监听
+                request.onreadystatechange = function(){
+                    //如果请求没有完成，直接结束
+                    if(request.readyState !==4){
+                        return
+                    }
+                    const {status,statusText} = request
+                   //2.请求成功就调用resolve()
+                    if(status>=200&&status<300){
+                        //准备结果数据对象response
+                        const response ={
+                            data:JSON.parse(request.response),
+                            status,
+                            statusText
+                        }
+                        resolve(response)
+                    }else{
+                        //3.请求失败就调用reject()
+                        reject(new Error('request error status is'+status))
+                    }
+                
+                }
+         
+                console.log();
+            })
+        }
+    </script>
+</body>
+
+</html>

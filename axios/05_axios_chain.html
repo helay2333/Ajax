@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>axios的处理链流程</title>
+</head>
+<body>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script>
+        //添加请求拦截器(回调函数)请求前
+    axios.interceptors.request.use(
+       config=>{
+           console.log("request interceptor1 onResolved()");
+           return config
+       },
+       error=>{
+        console.log("request interceptor1 onRejected()");
+           return Promise.reject(error)
+       }
+   );
+
+   axios.interceptors.request.use(
+       config=>{
+           console.log("request interceptor2 onResolved()");
+           return config
+       },
+       error=>{
+        console.log("request interceptor2 onRejected()");
+           return Promise.reject(error)
+       }
+   );
+
+        //添加响应拦截器，得到响应之后会先调拦截器的回调
+
+       axios.interceptors.response.use(
+           response=>{
+            console.log("response interceptor1 onResolved()");
+            return response
+           },
+           error=>{
+            console.log("response interceptor1 onRejected()");
+            return Promsie.reject(error)
+           }
+       )
+
+
+       axios.interceptors.response.use(
+           response=>{
+            console.log("response interceptor2 onResolved()");
+            return response
+           },
+           error=>{
+            console.log("response interceptor2 onRejected()");
+            return Promsie.reject(error)
+           }
+       )
+
+        axios.get('http://localhost:3000/posts')
+        .then(response=>{
+            console.log(response.data);
+        })
+        .catch(error=>{
+            console.log('error',error.message);
+        })
+    </script>
+</body>
+</html>

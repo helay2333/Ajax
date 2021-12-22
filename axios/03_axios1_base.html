@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <button onclick="testGet()">GET请求</button>
+        <button onclick="testPost()">POST请求</button>
+        <button onclick="testPut()">PUT请求</button>
+        <button onclick="testDelete()">DELETE请求</button>
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script>
+        //指定默认配置
+        axios.defaults.baseURL = "http://localhost:3000"
+        function testGet(){
+            axios({
+                url:'/posts',
+                params:{
+                    id:1
+                },
+
+            })
+            .then(response=>{
+                console.log('/posts get',response.data);
+            })
+        }
+        function testPost(){
+            axios({
+                url:'/posts',
+                method: "POST",
+                data:{
+                    "title": "json-serverpppp", "author": "typicodepppp"
+                }
+            })
+            .then(response=>{
+                console.log('/posts post',response.data);
+            })
+        }
+        function testPut(){
+            // axios.put('http://localhost:3000/posts/3',{"title": "json-server...", "author": "typicode..."})
+            axios({
+                url:'/posts/4',
+                method:"PUT",
+                data:{
+                    "title": "json-44444", "author": "typicode444"
+                }
+            })
+            .then(response=>{
+                console.log('/posts put',response.data);
+            })
+        }
+        function testDelete(){
+            // axios.delete('http://localhost:3000/posts/3')
+            axios({
+                url:'/posts/3',
+                method:"DELETE"
+            })
+            .then(response=>{
+                console.log('/posts delete',response.data);
+            })
+        }
+    </script>
+</body>
+</html>
