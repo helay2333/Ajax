@@ -13,6 +13,9 @@
     "json-server": "^0.17.0",
     "nodemon": "^2.0.14"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "webpack": "^4.41.6",
+    "webpack-cli": "^3.3.11"
+  },
   "description": ""
 }
