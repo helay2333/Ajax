@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // console.log(a);
+        // let b = null;
+        // console.log(b.xxx);
+        // function fn(){
+        //     fn()
+        // }
+        // fn()
+        // const s = """""
+        // try{
+        //     let d
+        // console.log(d.xxx)
+        // }catch(error){
+        //     console.log(error.message)
+        //     console.log(error.stack)
+        // }
+        // console.log("出错之后的代码在这")
+
+        //抛出错误
+        function something(){
+            if(Date.now()%2 ===1){
+                console.log("当前时间为奇数,可以执行任务");
+            }else{
+                //抛出异常，由调用者处理
+                throw new Error("当前时间为偶数，无法执行");
+            }
+        }
+        //捕获处理异常
+        try{
+            something()
+        }catch(error){//我们作为调用者，这里来处理异常应该怎么办
+            //异常了，弹出错误信息看看
+            alert(error.message)
+        }
+    </script>
+</body>
+</html>

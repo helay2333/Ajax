@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function Fn(){
+
+        }
+        const fn = new Fn()//此时Fn是一个构造函数,是函数，fn是实例对象
+        console.log(Fn.prototype);//但是此时Fn是一个对象，就不再体现函数的特性
+        //Fn函数什么时候才会作为对象使用,就是看.操作符
+    </script>
+</body>
+</html>
