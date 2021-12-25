@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const p = new Promise((resolve,reject)=>{
+            console.log("执行执行器");
+            console.log("执行异步");
+            setTimeout(()=>{
+                console.log("resolve");
+            },1000)
+        })
+        console.log("创建promise结束了");
+        p.then(value=>{
+            console.log("异步处理结果",value);
+           
+        })
+    // new Promise((resolve,reject)=>{
+    //     console.log(resolve);
+    //     console.log(reject);
+
+    //     setTimeout(()=>{
+    //         //只会执行其中的某一个
+    //         resolve('成功的数据')
+    //         reject("失败的数据")
+    //     },1000)
+    // }).then(
+    //     value=>{
+    //         console.log("onResolved()1",value);
+    //     }
+    // ).catch(
+    //     reason=>{
+    //         console.log("onRejeted()1",reason);
+    //     }
+    // )
+
+    // //产生一个成功值为1的promise
+    // const p1 = new Promise((resolve,reject)=>{
+    //     resolve(1)
+    // })
+    // const p2 = Promise.resolve(2)
+    // const p3 = Promise.reject(3)
+
+
+
+    // const pAll = Promise.all([p1,p2])//传递三个promise代表三个异步操作
+    // //只有都成功才去做成功的处理，一旦有一个失败就是失败的
+    // pAll.then(
+    //     values=>{
+    //         console.log("成功了",values);//如果成功,那就是一个数组，数组中是成功的数据,
+    //         //数据的顺序就是数组中的先后顺序
+    //     },
+    //     reason=>{
+    //         console.log("all onRejected()",reason);
+    //     }
+    // )
+    // const pRace = Promise.race([p1,p2,p3])
+    // pRace.then(
+    //     //谁先返回谁决定成功返回
+    //     value=>{
+    //         console.log("race onResolved()",value);
+    //     },
+    //     reason=>{
+    //         console.log("race onRejected()",reason);
+    //     }
+    // )
+    </script>
+</body>
+</html>
