@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <h2>Promise初体验</h2>
+        <button id="btn">点击抽奖</button>
+    </div>
+    <script>
+        //生成随机数
+        function rand(m,n){
+            return Math.ceil(Math.random() * (n-m+1)) + m - 1;
+        }
+
+        // 点击按钮，2秒后显示是否中将
+        const btn = document.querySelector('#btn');console.log(btn);
+        //绑定事件
+        btn.addEventListener('click',function(){
+            const p = new Promise((resolve,reject)=>{
+                setTimeout(()=>{
+                    let n = rand(1,100);
+                    if(n <=30){
+                        resolve(n)
+                    }else{
+                        console.log(n);
+                        reject(n)
+                    }
+                },1000);
+            });
+            p.then((value)=>{
+                console.log(value);
+                alert("中奖了，中将数字为"+ value)
+            },(reason)=>{
+                alert("再接再厉吧ni,失败数字为" + reason)
+            })
+        })
+
+    </script>
+</body>
+</html>

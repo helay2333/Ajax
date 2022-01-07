@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        new Promise((resolve,reject)=>{
+            setTimeout(()=>{//后改变状态，同时指定数据，异步执行保存的回调函数
+                resolve(1)
+            },1000);
+        }).then(//先指定回调函数，保存当前指定的回调函数
+            value=>{},
+            reason=>{
+                console.log('reason',reason);
+            }
+        )
+
+    //怎么先改变状态然后执行回调函数呢
+    new Promise((resolve,reject)=>{
+        resolve(1);//先改变状态(同时指定数据)
+    }).then(//然后指定回调函数，异步执行的回调函数
+        value=>{console.log('value',value);},
+        reason=>{console.log('reason',reason);}
+
+    )
+
+
+    const p = new Promise((resolve,reject)=>{
+        setTimeout(()=>{
+            resolve(1)
+        },1000);
+    })
+    setTimeout(()=>{
+        p.then(
+            value=>{console.log('vale',value);}
+            ,
+            reason=>{console.log('reason3',reason);}
+        )
+    },1000)
+    </script>
+</body>
+</html>
