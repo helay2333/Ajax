@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <h2>封装Ajax操作</h2>
+        <button id="btn">点击发送Ajax</button>
+        <script>
+            const btn = document.querySelector('#btn');
+            btn.addEventListener('click',function(){
+                const p = new Promise((resolve,reject)=>{
+                    const xhr = new XMLHttpRequest();//创建对象xhr 
+                    xhr.open('GET','https://api.apiopen.top/g etJoke');//初始化对象  
+                    xhr.send();//发送请求
+                    xhr.onreadystatechange = function(){//响应处理
+                        if(xhr.readyState === 4){
+                            if(xhr.status >=200 && xhr.status <300){
+                                resolve(xhr.response)//传递响应体
+                            }else{
+                                reject(xhr.status)
+                            }
+                            }
+                    }
+                })
+                p.then((value)=>{
+                    console.log(value);
+                },(err)=>{
+                    console.warn(err);
+                })
+            })
+        </script>
+    </div>
+</body>
+</html>

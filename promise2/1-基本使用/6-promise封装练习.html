@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 封装sendAjax 发送get ajax请求-->
+    <!-- 参数 URL   返回一个Promise对象 -->
+    <script>
+        function sendAjax(url){
+            return new Promise((resolve,reject)=>{
+                const xhr = new XMLHttpRequest();
+                xhr.open("GET",url);
+                xhr.send();
+                // 处理结果
+                xhr.onreadystatechange = function(){
+                    if(xhr.readyState ===4){
+                        // 成功
+                        if(xhr.status>=200 && xhr.status<300){
+                            resolve(xhr.response)
+                        }else{
+                            reject(xhr.status)
+                        }
+                    }
+                }
+            })
+        }
+        sendAjax('https://api.apiop en.top/getJoke').then(value=>{
+            console.log(value);
+        },reason=>{
+            console.warn(reason);
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let p = new Promise((resolve,reject) =>{
+            setTimeout(()=>{
+                resolve('ok');
+            },1000);
+        })
+        p.then(value=>{
+            return new Promise((resolve,reject)=>{
+                resolve('success')
+            })
+        }).then(value=>{
+            console.log(value);
+
+        }).then(value=>{
+            console.log(value);//为什么打印undefine
+            //上一个then返回一个Promise的对象,这个Promise对象的值是由其指定的回调函数的返回值决定
+            // 上一个回调的返回值没写，所以就是undefine，然后不是Promise的对象，所以这个then返回结果是成功的
+            // 成功的结果值就是这个undefine
+        })
+    </script>
+</body>
+</html>
